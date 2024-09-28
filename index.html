@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Educational Game</title>
+
+    <!-- إضافة Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- زر لتكبير/تصغير الشاشة -->
+     <div>
+        <button id="fullscreen-btn" onclick="playSound()" class="game-button"> 
+            <i class="fas fa-expand"></i>
+        </button>
+        <button id="sound-btn" class="game-button"> 
+            <i class="fas fa-volume-up"></i>
+        </button>
+     </div>
+  
+    <!-- <button id="mute-button" onclick="toggleMute()">كتم الصوت</button> -->
+
+
+    <!-- زر "Accept" الأخضر في منتصف أسفل الشاشة -->
+     <div>
+        <!-- <h1 class="Logo">Learn English</h1> -->
+         <img class="logo" src="./tool/img/Picsart_24-09-28_02-51-08-518.png" alt="">
+        <div class="btn_accept">
+            <button class="game-button green" onclick="playSound()">Start</button>
+         </div>
+     </div>
+  
+
+     <div class="boy">
+        <img src="./tool/img/boy.png" alt="" srcset="">
+     </div>
+    
+
+    <script>
+        // دالة لتكبير الشاشة
+        function openFullscreen() {
+            if (document.documentElement.requestFullscreen) {
+                document.documentElement.requestFullscreen();
+            } else if (document.documentElement.mozRequestFullScreen) { // Firefox
+                document.documentElement.mozRequestFullScreen();
+            } else if (document.documentElement.webkitRequestFullscreen) { // Chrome, Safari, Opera
+                document.documentElement.webkitRequestFullscreen();
+            } else if (document.documentElement.msRequestFullscreen) { // IE/Edge
+                document.documentElement.msRequestFullscreen();
+            }
+        }
+
+        // دالة لتصغير الشاشة
+        function closeFullscreen() {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if (document.mozCancelFullScreen) { // Firefox
+                document.mozCancelFullScreen();
+            } else if (document.webkitExitFullscreen) { // Chrome, Safari, Opera
+                document.webkitExitFullscreen();
+            } else if (document.msExitFullscreen) { // IE/Edge
+                document.msExitFullscreen();
+            }
+        }
+
+        // تغيير وضعية الشاشة عند الضغط على الزر
+        document.getElementById('fullscreen-btn').addEventListener('click', function() {
+            const icon = this.querySelector('i');
+            if (!document.fullscreenElement) {
+                openFullscreen(); // تكبير الشاشة
+                icon.classList.remove('fa-expand'); // إزالة أيقونة التكبير
+                icon.classList.add('fa-compress'); // إضافة أيقونة التصغير
+                this.innerHTML = '<i class="fas fa-compress"></i>  '; // تعديل النص والأيقونة معًا
+            } else {
+                closeFullscreen(); // تصغير الشاشة
+                icon.classList.remove('fa-compress'); // إزالة أيقونة التصغير
+                icon.classList.add('fa-expand'); // إضافة أيقونة التكبير
+                this.innerHTML = '<i class="fas fa-expand"></i>'; // تعديل النص والأيقونة معًا
+            }
+        });
+
+    </script>
+    <script>
+        function playSound() {
+            var audio = new Audio("./tool/sound/click.mp3"); // ضع مسار الصوت هنا
+            audio.play();
+        }
+    </script>
+    <script>
+        document.getElementById('sound-btn').addEventListener('click', function() {
+            const iconSound = this.querySelector('i');
+            // Check if the sound is currently muted
+            if (iconSound.classList.contains('fa-volume-up')) {
+                // Switch to mute
+                iconSound.classList.remove('fa-volume-up');
+                iconSound.classList.add('fa-volume-mute');
+                this.innerHTML = '<i class="fas fa-volume-mute"></i>'; // Update the button icon to mute
+                // You can add logic here to mute the sound
+            } else {
+                // Switch to unmute
+                iconSound.classList.remove('fa-volume-mute');
+                iconSound.classList.add('fa-volume-up');
+                this.innerHTML = '<i class="fas fa-volume-up"></i>'; // Update the button icon to volume-up
+                // You can add logic here to unmute the sound
+            }
+        });
+        
+    </script>
+    
+    
+</body>
+</html>
